@@ -1,6 +1,8 @@
 package com.beeline.demo.cocktailapp.di.modules
 
 import com.beeline.demo.cocktailapp.data.provider.CocktailsProvider
+import com.beeline.demo.cocktailapp.data.repositiory.CocktailsRemotePresenter
+import com.beeline.demo.cocktailapp.data.repositiory.CocktailsRemoteRepository
 import com.beeline.demo.cocktailapp.ui.main.viewmodel.CocktailViewModel
 import com.beeline.demo.cocktailapp.utils.NetworkService
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,4 +18,5 @@ fun mainModules() = module {
     single {
         NetworkService()
     }
+    single<CocktailsRemoteRepository> { CocktailsRemotePresenter() }
 }

@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name">CocktailApp</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="igridients">Ingredients</string>
+    <string name="glass">Glass %s</string>
+    <string name="ingridients"><![CDATA[
+    <p style="text-align: center;"><strong>Instructions</strong></p>
+    <p style="text-align: center;">%s</p>
+    <p style="text-align: center;"><strong>Glass %s</strong></p>
+    <p style="text-align: center;"><strong>ID</strong></p>
+    <p style="text-align: center;">%s</p>
+    <p style="text-align: center;"><strong>Category</strong></p>
+    <p style="text-align: center;">%s</p>
+    <p style="text-align: center;"><strong>Type</strong></p>
+    <p style="text-align: center;">%s</p>]]></string>
+    <string name="error">Что то пошло не так, попробуйте позже</string>
+    <string name="information">Information</string>
+    <string name="ok">Ok</string>
 </resources>
