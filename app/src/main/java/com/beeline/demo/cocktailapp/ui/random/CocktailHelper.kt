@@ -11,7 +11,7 @@ object CocktailHelper {
         return receipts
     }
 
-    fun getDrinksInfo(drink: List<Drinks>): List<Pair<String, String>> {
+    fun getDrinksInfo(drink: List<Drinks>): MutableList<Pair<String, String>> {
         val receipts = mutableListOf<Pair<String, String>>()
         for (item in drink) {
             receipts.add(item.strDrinkThumb to item.strDrink)

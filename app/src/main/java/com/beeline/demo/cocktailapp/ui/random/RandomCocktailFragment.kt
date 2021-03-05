@@ -10,9 +10,11 @@ import com.beeline.demo.cocktailapp.data.network.Resource
 import com.beeline.demo.cocktailapp.data.network.Status
 import com.beeline.demo.cocktailapp.ui.main.view.View
 import com.beeline.demo.cocktailapp.ui.main.viewmodel.CocktailViewModel
+import gone
 import kotlinx.android.synthetic.main.fragment_random_cocktail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import visible
 
 class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cocktails> {
     private val viewModel: CocktailViewModel by viewModel()
@@ -28,10 +30,14 @@ class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cockt
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         swipe_container.setOnRefreshListener {
+            favourite.gone()
             viewModel.init()
         }
         viewModel.view = this
         viewModel.init()
+        favourite.setOnClickListener {
+            favourite.setImageResource(R.drawable.ic_favorite_red)
+        }
     }
 
     override fun showError(message: Int) {
@@ -64,6 +70,8 @@ class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cockt
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = ReceiptAdapter(CocktailHelper.getReceiptInfo(cocktail))
         recyclerView.adapter = adapter
+        favourite.setImageResource(R.drawable.ic_favorite_white)
+        favourite.visible()
     }
 
 }

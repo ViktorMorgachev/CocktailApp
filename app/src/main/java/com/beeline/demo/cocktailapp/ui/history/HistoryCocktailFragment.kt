@@ -1,6 +1,5 @@
 package com.beeline.demo.cocktailapp.ui.history
 
-
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beeline.demo.cocktailapp.R
@@ -18,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drinks> {
     val viewModel: DrinkViewModel by viewModel()
 
-    private lateinit var adapter: DrinksAdapter
+    private var adapter: DrinksAdapter? = null
 
     companion object {
         fun create(): HistoryCocktailFragment {
@@ -29,6 +28,10 @@ class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drin
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.view = this
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getHistory()
     }
 
@@ -38,7 +41,11 @@ class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drin
 
     override fun showData(data: List<Drinks>) {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = DrinksAdapter(CocktailHelper.getDrinksInfo(data))
-        recyclerView.adapter = adapter
+        adapter.let {
+            adapter = DrinksAdapter(mutableListOf())
+            recyclerView.adapter = adapter
+            adapter?.attachSwipeToRefresh(requireContext(), recyclerView)
+        }
+        adapter?.addData(CocktailHelper.getDrinksInfo(data))
     }
 }

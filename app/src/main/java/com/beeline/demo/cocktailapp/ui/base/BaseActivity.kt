@@ -12,14 +12,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.beeline.demo.cocktailapp.R
-import com.beeline.demo.cocktailapp.navigation.FragmentNavigation
 import com.beeline.demo.cocktailapp.ui.history.HistoryCocktailFragment
 import com.beeline.demo.cocktailapp.ui.random.RandomCocktailFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
-class BaseActivity : FragmentActivity(), FragmentNavigation {
+class BaseActivity : FragmentActivity() {
 
     private val fragmentManager = supportFragmentManager
 
@@ -29,16 +28,12 @@ class BaseActivity : FragmentActivity(), FragmentNavigation {
         init()
     }
 
-    override fun addFragment(fragment: Fragment) {
-        //  supportFragmentManager.findFragmentById()
-    }
-
-    override fun replaceFragment(fragment: Fragment) {
-    }
-
     private fun init() {
         val pagerAdapter = ViewPagerAdapter(this)
         view_pager.adapter = pagerAdapter
+        view_pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+        })
         TabLayoutMediator(
             tab_layout,
             view_pager
