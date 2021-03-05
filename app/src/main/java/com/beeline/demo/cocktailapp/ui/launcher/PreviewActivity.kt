@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.beeline.demo.cocktailapp.BaseActivity
+import com.beeline.demo.cocktailapp.ui.base.BaseActivity
 import com.beeline.demo.cocktailapp.R
 
 class PreviewActivity : AppCompatActivity() {

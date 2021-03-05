@@ -1,6 +1,5 @@
-package com.beeline.demo.cocktailapp
+package com.beeline.demo.cocktailapp.ui.base
 
-import InformationDialogFragment
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.beeline.demo.cocktailapp.R
 import com.beeline.demo.cocktailapp.navigation.FragmentNavigation
-import com.beeline.demo.cocktailapp.ui.HistoryCocktailFragment
-import com.beeline.demo.cocktailapp.ui.RandomCocktailFragment
+import com.beeline.demo.cocktailapp.ui.history.HistoryCocktailFragment
+import com.beeline.demo.cocktailapp.ui.random.RandomCocktailFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*

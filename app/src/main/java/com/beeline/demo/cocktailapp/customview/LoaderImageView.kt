@@ -19,7 +19,7 @@ class LoaderImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun loadImage(url: String) {
-        Glide.with(context).load(url).placeholder(R.drawable.ic_launcher_foreground).fitCenter()
+        Glide.with(context).load(url).placeholder(R.drawable.ic_cocktail).fitCenter()
             .into(imageView)
     }
 }

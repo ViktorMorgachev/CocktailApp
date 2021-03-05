@@ -5,6 +5,8 @@ import com.beeline.demo.cocktailapp.data.network.Resource
 
 interface View<T> {
     fun showError(@StringRes message: Int)
-    fun showLoading(isLoading: Boolean)
-    fun showData(resource: Resource<T?>)
+    fun showLoading(isLoading: Boolean) = Unit
+    fun showData(resource: Resource<T?>) = Unit
+    fun showData(data: T) = Unit
+    fun showData(data: List<T>) = Unit
 }

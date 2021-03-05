@@ -6,6 +6,8 @@ import com.beeline.demo.cocktailapp.di.modules.cocktailModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 class Application : Application() {
     override fun onCreate() {
@@ -15,5 +17,10 @@ class Application : Application() {
             androidLogger()
             modules(listOf(cocktailModule, networkModule))
         }
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        } /*else {
+            *//*Timber.plant(ReleaseTree())*//*
+        }*/
     }
 }

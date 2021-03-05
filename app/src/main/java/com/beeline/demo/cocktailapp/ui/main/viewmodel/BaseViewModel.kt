@@ -6,5 +6,5 @@ import com.beeline.demo.cocktailapp.ui.main.view.View
 
 abstract class BaseViewModel<T>(open val repository: Repository) : ViewModel() {
     var view: View<T>? = null
-    abstract fun init()
+    open fun init() = Unit
 }
