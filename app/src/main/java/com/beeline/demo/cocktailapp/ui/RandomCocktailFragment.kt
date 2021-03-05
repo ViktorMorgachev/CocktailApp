@@ -3,13 +3,16 @@ package com.beeline.demo.cocktailapp.ui
 import android.os.Bundle
 import com.beeline.demo.cocktailapp.BaseFragment
 import com.beeline.demo.cocktailapp.R
-import com.beeline.demo.cocktailapp.data.model.Cocktail
+import com.beeline.demo.cocktailapp.data.model.Cocktails
+import com.beeline.demo.cocktailapp.data.network.Resource
+import com.beeline.demo.cocktailapp.data.network.Status
 import com.beeline.demo.cocktailapp.ui.main.view.View
 import com.beeline.demo.cocktailapp.ui.main.viewmodel.CocktailViewModel
 import kotlinx.android.synthetic.main.fragment_random_cocktail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
-class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cocktail> {
+class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cocktails> {
     private val viewModel: CocktailViewModel by viewModel()
 
     companion object {
@@ -35,7 +38,17 @@ class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cockt
         swipe_container.isRefreshing = isLoading
     }
 
-    override fun showData(data: Cocktail) {
 
+    override fun showData(resource: Resource<Cocktails?>) {
+        when (resource.status) {
+            Status.ERROR -> {
+                showError(R.string.error)
+                Timber.e(resource.message)
+            }
+            Status.SUCCESS -> {
+                Timber.d("Success: ${resource.data}")
+            }
+            else -> {}
+        }
     }
 }

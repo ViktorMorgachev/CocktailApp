@@ -63,12 +63,10 @@ class BaseActivity : FragmentActivity(), FragmentNavigation {
     inner class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
 
-        private val title_icons: List<Pair<String, Int>> =
-            listOf(
-                "Cocktail" to R.drawable.ic_history,
-                "History" to R.drawable.ic_cocktail
+        private val title_icons: List<Pair<String, Int>> = listOf(
+                "Cocktail" to R.drawable.ic_cocktail,
+                "History" to R.drawable.ic_history
             )
-
 
         override fun getItemCount(): Int {
             return title_icons.size
@@ -82,7 +80,7 @@ class BaseActivity : FragmentActivity(), FragmentNavigation {
             }
         }
 
-        fun getTabView(position: Int): View? {
+        fun getTabView(position: Int): View {
             val v: View = LayoutInflater.from(applicationContext).inflate(R.layout.tab_view, null)
             val tv = v.findViewById<View>(R.id.tv_tab) as TextView
             val iv = v.findViewById<View>(R.id.iv_tab)
