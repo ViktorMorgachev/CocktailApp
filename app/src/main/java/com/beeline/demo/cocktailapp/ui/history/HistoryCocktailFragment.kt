@@ -12,13 +12,18 @@ import com.beeline.demo.cocktailapp.ui.random.CocktailHelper
 import kotlinx.android.synthetic.main.fragment_random_cocktail.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drinks> {
     val viewModel: DrinkViewModel by viewModel()
 
     private var adapter: DrinksAdapter? = null
     private val provider: CocktailProvider by inject()
+
+    private val listener = { position: Int ->
+        provider.deleteFromHistoryDrinkByName(adapter!!.drink[position].second)
+        adapter?.removeItem(position = position)
+        viewModel.getHistory()
+    }
 
     companion object {
         fun create(): HistoryCocktailFragment {
@@ -45,10 +50,6 @@ class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drin
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = DrinksAdapter(CocktailHelper.getDrinksInfo(data))
         recyclerView.adapter = adapter
-        adapter?.attachSwipeToDelete(requireContext(), recyclerView) {
-            provider.deleteFromHistoryDrinkByName(adapter!!.drink[it].second)
-            adapter?.removeItem(position = it)
-            viewModel.getHistory()
-        }
+        adapter?.attachSwipeToDelete(requireContext(), recyclerView, listener)
     }
 }
