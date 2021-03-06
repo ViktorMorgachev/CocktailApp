@@ -42,9 +42,9 @@ class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drin
 
     override fun showData(data: List<Drinks>) {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = DrinksAdapter(mutableListOf())
+        adapter = DrinksAdapter(CocktailHelper.getDrinksInfo(data))
         recyclerView.adapter = adapter
-        adapter?.attachSwipeToDelete(requireContext(), recyclerView){
+        adapter?.attachSwipeToDelete(requireContext(), recyclerView) {
             provider.deleteFromHistoryDrinkByName(it)
             viewModel.getHistory()
         }
