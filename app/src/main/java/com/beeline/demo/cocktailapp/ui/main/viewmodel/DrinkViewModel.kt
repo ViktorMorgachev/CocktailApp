@@ -6,10 +6,10 @@ import com.beeline.demo.cocktailapp.ui.random.CocktailHelper
 import kotlin.properties.Delegates
 
 class DrinkViewModel(override val repository: CocktailsRepository) :
-    BaseViewModel<MutableList<Pair<String, String>>>(repository) {
+    BaseViewModel<Drinks>(repository) {
 
-    var drinks: List<Drinks> by Delegates.observable(mutableListOf()) { prop, old, new ->
-        view?.showData(CocktailHelper.getDrinksInfo(drinks))
+    var drinks: MutableList<Drinks> by Delegates.observable(mutableListOf()) { prop, old, new ->
+        view?.showData(new)
     }
 
     fun getHistory() {

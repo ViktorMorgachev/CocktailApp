@@ -8,4 +8,6 @@ interface View<T> {
     fun showLoading(isLoading: Boolean) = Unit
     fun showData(resource: Resource<T?>) = Unit
     fun showData(data: T) = Unit
+    fun showData(data: List<T>) = Unit
+
 }
