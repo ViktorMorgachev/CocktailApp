@@ -14,10 +14,6 @@ class CocktailViewModel(
     override val repository: CocktailsRepository
 ) : BaseViewModel<Cocktails>(repository) {
 
-    fun getHistory(): MutableList<Drinks> {
-        return repository.getCocktailsHistory()
-    }
-
     override fun init() {
         GlobalScope.launch {
             try {

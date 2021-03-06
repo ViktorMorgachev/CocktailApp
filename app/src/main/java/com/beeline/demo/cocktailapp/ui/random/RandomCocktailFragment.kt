@@ -25,7 +25,7 @@ class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cockt
         }
     }
 
-    private lateinit var adapter : ReceiptAdapter
+    private lateinit var adapter: ReceiptAdapter
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,31 +41,47 @@ class RandomCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Cockt
     }
 
     override fun showError(message: Int) {
-        showDialog(message = message)
+        showDialog(
+            message = message,
+            negativeButtonListener = Pair({ viewModel.init() }, R.string.ok)
+        )
     }
 
     override fun showLoading(isLoading: Boolean) {
-        swipe_container.isRefreshing = isLoading
+        requireActivity().runOnUiThread {
+            swipe_container.isRefreshing = isLoading
+        }
     }
 
 
     override fun showData(resource: Resource<Cocktails?>) {
         when (resource.status) {
             Status.ERROR -> {
+                top_cocktail.isLoading(false)
                 showError(R.string.error)
                 Timber.e(resource.message)
             }
             Status.SUCCESS -> {
                 resource.data?.let { showData(it) }
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 
     override fun showData(data: Cocktails) {
         val cocktail = data.drinks[0]
         top_cocktail.loadImage(cocktail.strDrinkThumb)
-        instructions.text = Html.fromHtml(resources.getString(R.string.ingridients, cocktail.strInstructions, cocktail.strGlass, cocktail.idDrink.toString(), cocktail.strCategory, cocktail.strAlcoholic))
+        instructions.text = Html.fromHtml(
+            resources.getString(
+                R.string.ingridients,
+                cocktail.strInstructions,
+                cocktail.strGlass,
+                cocktail.idDrink.toString(),
+                cocktail.strCategory,
+                cocktail.strAlcoholic
+            )
+        )
         top_cocktail_text.text = cocktail.strDrink
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = ReceiptAdapter(CocktailHelper.getReceiptInfo(cocktail))

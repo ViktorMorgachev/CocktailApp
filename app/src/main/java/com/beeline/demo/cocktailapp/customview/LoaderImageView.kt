@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.beeline.demo.cocktailapp.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -57,5 +58,9 @@ class LoaderImageView @JvmOverloads constructor(
             }
 
         }).fitCenter().into(imageView)
+    }
+
+    fun isLoading(isLoading: Boolean){
+        progressBar.isVisible = isLoading
     }
 }

@@ -1,5 +1,6 @@
 package com.beeline.demo.cocktailapp.di.modules
 
+import com.beeline.demo.cocktailapp.data.provider.CocktailProvider
 import com.beeline.demo.cocktailapp.data.repositiory.CocktailsRepository
 import com.beeline.demo.cocktailapp.ui.main.viewmodel.CocktailViewModel
 import com.beeline.demo.cocktailapp.ui.main.viewmodel.DrinkViewModel
@@ -12,4 +13,5 @@ val cocktailModule = module {
     }
     viewModel { DrinkViewModel(get()) }
     single { CocktailsRepository(get()) }
+    single { CocktailProvider(get()) }
 }

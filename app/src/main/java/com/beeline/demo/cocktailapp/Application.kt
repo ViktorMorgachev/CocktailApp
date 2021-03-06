@@ -17,9 +17,7 @@ class Application : Application() {
             androidLogger()
             modules(listOf(cocktailModule, networkModule))
         }
-        if (BuildConfig.DEBUG) {
-            Timber.plant(DebugTree())
-        } /*else {
+        Timber.plant(DebugTree()) /*else {
             *//*Timber.plant(ReleaseTree())*//*
         }*/
     }
