@@ -17,13 +17,12 @@ import java.lang.Exception
 import kotlin.math.abs
 
 class DrinksAdapter(
-    private val drink: MutableList<Pair<String, String>>
+    val drink: MutableList<Pair<String, String>>
 ) : RecyclerView.Adapter<DrinksAdapter.DataViewHolder>() {
     private lateinit var swipeToDeleteCallback: SwipeToDeleteCallback
     private lateinit var itemTouchHelper: ItemTouchHelper
-    private var deleteListener: ((String) -> Unit?)? = null
 
-    inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(drink: Pair<String, String>) {
             itemView.receipt_image.loadImage(drink.first)
             itemView.receipt_info.text = drink.second
@@ -33,24 +32,22 @@ class DrinksAdapter(
     fun attachSwipeToDelete(
         context: Context,
         recyclerView: RecyclerView,
-        listener: ((String) -> Unit)? = null
+        deleteListener: (Int) -> Unit
     ) {
-        deleteListener = listener
-        swipeToDeleteCallback = SwipeToDeleteCallback(context)
+        swipeToDeleteCallback = SwipeToDeleteCallback(context, deleteListener)
         itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     fun removeItem(position: Int) {
-        try {
-            deleteListener?.invoke(drink[position].second)
-            drink.removeAt(position)
-            notifyItemChanged(position)
-        } catch (e: Throwable){
-            Timber.e(e)
-        }
+        drink.removeAt(position)
+        notifyItemChanged(position)
     }
 
+
+    fun getItems(): MutableList<Pair<String, String>> {
+        return drink
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DataViewHolder(
@@ -66,7 +63,10 @@ class DrinksAdapter(
         holder.bind(drink[position])
 
 
-   inner class SwipeToDeleteCallback internal constructor(val context: Context) :
+    class SwipeToDeleteCallback internal constructor(
+        val context: Context,
+        val deleteListener: (Int) -> Unit
+    ) :
         ItemTouchHelper.Callback() {
 
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
@@ -104,7 +104,7 @@ class DrinksAdapter(
         }
 
         override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
-            removeItem(viewHolder.adapterPosition)
+            deleteListener.invoke(viewHolder.adapterPosition)
         }
     }
 

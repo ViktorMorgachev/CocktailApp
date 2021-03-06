@@ -25,4 +25,8 @@ class CocktailsRepository(private val cocktailsApi: CocktailsApi) : BaseReposito
         return history.take(10).toMutableList()
     }
 
+    fun deleteFromHistoryDrinkByName(drinkName: String) {
+        history.removeIf { drinkName == it.strDrink }
+    }
+
 }

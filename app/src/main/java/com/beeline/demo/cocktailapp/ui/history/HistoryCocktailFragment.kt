@@ -31,6 +31,7 @@ class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drin
         viewModel.view = this
     }
 
+
     override fun onResume() {
         super.onResume()
         viewModel.getHistory()
@@ -45,7 +46,8 @@ class HistoryCocktailFragment(layoutId: Int) : BaseFragment(layoutId), View<Drin
         adapter = DrinksAdapter(CocktailHelper.getDrinksInfo(data))
         recyclerView.adapter = adapter
         adapter?.attachSwipeToDelete(requireContext(), recyclerView) {
-            provider.deleteFromHistoryDrinkByName(it)
+            provider.deleteFromHistoryDrinkByName(adapter!!.drink[it].second)
+            adapter?.removeItem(position = it)
             viewModel.getHistory()
         }
     }
